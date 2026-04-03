@@ -1,4 +1,4 @@
-## [7.0.0-pre4] - 2025.08.29
+## [7.0.0] - 2026.04.03
 * #### New Feature:
   * Add adaptive platform Ui feature: `Material`, `Cupertino` and `Adaptive`
   * Add `autocomplete` new popup mode
