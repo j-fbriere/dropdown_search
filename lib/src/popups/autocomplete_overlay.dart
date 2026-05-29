@@ -10,6 +10,8 @@ abstract class CustomOverlayEntry {
 
   OverlayEntry getOverlayEntry(BuildContext context);
 
+  void markNeedsBuild(BoxConstraints constraints);
+
   void close() {
     overlayEntry?.remove();
     overlayEntry = null;
@@ -94,7 +96,7 @@ class CustomWidgetsBindingObserver with WidgetsBindingObserver {
 
 class MaterialCustomOverlyEntry extends CustomOverlayEntry {
   final AutocompleteProps props;
-  final BoxConstraints constraints;
+  BoxConstraints constraints;
   final TapRegionCallback? onTapOutside;
   final Widget? child;
 
@@ -103,6 +105,12 @@ class MaterialCustomOverlyEntry extends CustomOverlayEntry {
       required this.constraints,
       this.child,
       this.onTapOutside});
+
+  @override
+  void markNeedsBuild(BoxConstraints constraints) {
+    this.constraints = constraints;
+    overlayEntry?.markNeedsBuild();
+  }
 
   @override
   getOverlayEntry(BuildContext context) {
@@ -144,7 +152,7 @@ class MaterialCustomOverlyEntry extends CustomOverlayEntry {
 class CupertinoCustomOverlyEntry extends CustomOverlayEntry {
   final CupertinoAutocompleteProps props;
   final TapRegionCallback? onTapOutside;
-  final BoxConstraints constraints;
+  BoxConstraints constraints;
   final Widget? child;
 
   CupertinoCustomOverlyEntry(
@@ -152,6 +160,12 @@ class CupertinoCustomOverlyEntry extends CustomOverlayEntry {
       required this.constraints,
       this.child,
       this.onTapOutside});
+
+  @override
+  void markNeedsBuild(BoxConstraints constraints) {
+    this.constraints = constraints;
+    overlayEntry?.markNeedsBuild();
+  }
 
   @override
   OverlayEntry getOverlayEntry(BuildContext context) {

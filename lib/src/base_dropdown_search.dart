@@ -374,6 +374,15 @@ class DropdownSearchState<T> extends State<BaseDropdownSearch<T>> {
       });
     }
 
+    if (widget.popupProps.constraints != oldWidget.popupProps.constraints) {
+      if (_customOverlyEntry != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _popupStateKey.currentState?.setState(() {});
+          _customOverlyEntry?.markNeedsBuild(widget.popupProps.constraints);
+        });
+      }
+    }
+
     super.didUpdateWidget(oldWidget);
   }
 
